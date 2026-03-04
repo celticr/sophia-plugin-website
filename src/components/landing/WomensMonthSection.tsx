@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 
-const WomensMonthSection = () => {
+interface WomensMonthSectionProps {
+  onRegister: () => void;
+}
+
+const WomensMonthSection = ({ onRegister }: WomensMonthSectionProps) => {
   return (
     <section className="py-24 lg:py-32">
       <div className="container">
@@ -30,13 +34,12 @@ const WomensMonthSection = () => {
             </span>
           </p>
 
-          <a
-            href="#register"
-            id="register"
+          <button
+            onClick={onRegister}
             className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Register interest
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

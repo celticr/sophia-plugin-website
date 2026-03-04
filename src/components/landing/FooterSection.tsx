@@ -1,6 +1,10 @@
 import { Heart } from "lucide-react";
 
-const FooterSection = () => {
+interface FooterSectionProps {
+  onRegister: () => void;
+}
+
+const FooterSection = ({ onRegister }: FooterSectionProps) => {
   return (
     <footer className="hero-bg py-16">
       <div className="container text-center">
@@ -18,10 +22,13 @@ const FooterSection = () => {
         </p>
 
         <div className="flex justify-center gap-4">
-          <a href="#register" className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
+          <button
+            onClick={onRegister}
+            className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+          >
             Register interest
-          </a>
-          <a href="mailto:hello@sophia.chat" className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold border border-secondary-foreground/20 text-secondary-foreground/80 hover:border-primary hover:text-primary transition-colors">
+          </button>
+          <a href="mailto:action@springact.org" className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold border border-secondary-foreground/20 text-secondary-foreground/80 hover:border-primary hover:text-primary transition-colors">
             Contact us
           </a>
         </div>
