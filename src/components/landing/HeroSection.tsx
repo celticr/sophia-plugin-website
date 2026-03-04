@@ -8,10 +8,13 @@ const proofPoints = [
   { text: "96 languages" },
 ];
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onRegister: () => void;
+}
+
+const HeroSection = ({ onRegister }: HeroSectionProps) => {
   return (
     <section className="relative overflow-hidden hero-bg min-h-[90vh] flex items-center">
-      {/* Subtle glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20" style={{ background: "radial-gradient(circle, hsl(177 70% 69% / 0.4), transparent 70%)" }} />
 
       <div className="container relative z-10 py-20 lg:py-28">
@@ -35,7 +38,6 @@ const HeroSection = () => {
               Chatbot Sophia is the world's first AI companion helping victims of domestic violence document abuse and seek support safely.
             </p>
 
-            {/* Proof points */}
             <div className="flex flex-wrap gap-4 mb-10">
               {proofPoints.map((p) => (
                 <div key={p.text} className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium" style={{ background: "hsl(177 70% 69% / 0.15)", color: "hsl(177 70% 69%)" }}>
@@ -50,12 +52,18 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <a href="#register" className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
+              <button
+                onClick={onRegister}
+                className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+              >
                 Install the Sophia Plugin
-              </a>
-              <a href="#register" className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold border border-secondary-foreground/20 text-secondary-foreground/80 hover:border-primary hover:text-primary transition-colors">
+              </button>
+              <button
+                onClick={onRegister}
+                className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold border border-secondary-foreground/20 text-secondary-foreground/80 hover:border-primary hover:text-primary transition-colors"
+              >
                 Register interest
-              </a>
+              </button>
             </div>
           </motion.div>
 
