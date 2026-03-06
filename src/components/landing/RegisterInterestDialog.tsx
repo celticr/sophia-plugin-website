@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -78,6 +79,8 @@ const formSchema = z.object({
   role: z.string().trim().max(200).optional().or(z.literal("")),
   workEmail: z.string().trim().email("Please enter a valid email").max(255),
   installLocations: z.array(z.string()).min(1, "Please select at least one option"),
+  estimatedReach: z.coerce.number().min(1, "Please enter an estimated number"),
+  additionalComments: z.string().trim().max(2000).optional().or(z.literal("")),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -101,34 +104,36 @@ const RegisterInterestDialog = ({ open, onOpenChange }: RegisterInterestDialogPr
       role: "",
       workEmail: "",
       installLocations: [],
+      estimatedReach: undefined as unknown as number,
+      additionalComments: "",
     },
   });
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     try {
-      const body = [
-        `Organisation: ${data.organisationName}`,
-        `Type: ${data.organisationType}`,
-        `Country: ${data.country}`,
-        `Website: ${data.website || "N/A"}`,
-        ``,
-        `Contact: ${data.fullName}`,
-        `Role: ${data.role || "N/A"}`,
-        `Email: ${data.workEmail}`,
-        ``,
-        `Install locations: ${data.installLocations.join(", ")}`,
-      ].join("\n");
+      const payload = {
+        ...data,
+        installLocations: data.installLocations.join(", "),
+      };
 
-      const mailtoLink = `mailto:action@springact.org?subject=${encodeURIComponent(
-        `Sophia Plugin – Interest from ${data.organisationName}`
-      )}&body=${encodeURIComponent(body)}`;
+      const formData = new FormData();
+      for (const [key, value] of Object.entries(payload)) {
+        formData.append(key, String(value ?? ""));
+      }
 
-      window.location.href = mailtoLink;
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbxbJICm68RpzRZclx49fqiQKURf3xRlTCm_E0QRr9rBddxA8eC3E7yxgHj-H3u8A0fk/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: formData,
+        }
+      );
 
       toast({
-        title: "Opening your email client…",
-        description: "If it doesn't open, please email action@springact.org directly.",
+        title: "Registration submitted!",
+        description: "Thank you — we'll be in touch soon.",
       });
 
       form.reset();
@@ -331,6 +336,34 @@ const RegisterInterestDialog = ({ open, onOpenChange }: RegisterInterestDialogPr
                         />
                       ))}
                     </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="estimatedReach"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>How many people could this integration make Sophia available to? *</FormLabel>
+                    <FormControl>
+                      <Input type="number" min={1} placeholder="e.g. 10000" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="additionalComments"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Additional comments</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Anything else you'd like us to know?" rows={4} {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

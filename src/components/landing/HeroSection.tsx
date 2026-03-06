@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Shield, Globe, MessageCircle } from "lucide-react";
-import sophiaMockup from "@/assets/sophia-mockup.png";
+import sophiaMockup from "@/assets/sophia-plugin.jpg";
 
 const proofPoints = [
   { icon: MessageCircle, text: "50,000+ conversations" },
@@ -55,12 +55,6 @@ const HeroSection = ({ onRegister }: HeroSectionProps) => {
               <button
                 onClick={onRegister}
                 className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-              >
-                Install the Sophia Plugin
-              </button>
-              <button
-                onClick={onRegister}
-                className="inline-flex items-center justify-center rounded-lg px-8 py-4 text-base font-semibold border border-secondary-foreground/20 text-secondary-foreground/80 hover:border-primary hover:text-primary transition-colors"
               >
                 Register interest
               </button>
