@@ -4,7 +4,7 @@ import sophiaMockup from "@/assets/sophia-plugin.jpg";
 
 const proofPoints = [
   { icon: MessageCircle, text: "50,000+ conversations" },
-  { icon: Globe, text: "182+ countries" },
+  { icon: Globe, text: "200+ countries" },
   { text: "96 languages" },
 ];
 
@@ -35,7 +35,7 @@ const HeroSection = ({ onRegister }: HeroSectionProps) => {
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed text-secondary-foreground/70 mb-8 max-w-lg">
-              Chatbot Sophia is the world's first AI companion helping victims of domestic violence document abuse and seek support safely.
+              Chatbot Sophia is the world's first AI ally empowering victims of domestic violence to document abuse and seek support safely in 200+ countries.
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
